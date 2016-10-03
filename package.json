@@ -1,0 +1,17 @@
+{
+  "name": "searchasyoutype",
+  "version": "1.0.0",
+  "description": "Search as you type",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Sörensson",
+  "license": "ISC",
+  "dependencies": {
+    "classlist-polyfill": "^1.0.3",
+    "es6-promise": "^4.0.4",
+    "lodash": "^4.16.2",
+    "whatwg-fetch": "^1.0.0"
+  }
+}
