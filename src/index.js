@@ -1,6 +1,8 @@
 'use strict';
 var debounce = require('lodash/debounce');
 var assign = require('lodash/assign');
+var TemplateEngine = require('./templateEngine');
+
 require('es6-promise').polyfill();
 require('classlist-polyfill');
 require('whatwg-fetch');
@@ -24,6 +26,11 @@ var SearchWidget = function(el, opts) {
         onAfterFetch: function(queryString, data) {},
         onAfterInsertResults: function() {}
     };
+
+    self.opts.resultsTemplate = '<a href="<%this.url%> class="' + self.opts.resultClassName + '">' +
+        '<h3 class="' + self.opts.resultTitleClassName + '"><%this.title%></h3>' +
+        '<p class="' + self.opts.resultBodyClassName + '"><%this.body%></p>' +
+        '</a>';
 
     assign(self.opts, opts);
 
@@ -55,15 +62,12 @@ SearchWidget.prototype = {
         var html = '';
 
         for (var i =  0; i < results.length; i++) {
-            html += '<a href="' + results[i].url + '" class="' + self.opts.resultClassName + '">';
-            html += '<h3 class="' + self.opts.resultTitleClassName + '">' + results[i].title + '</h3>';
-            html += '<p class="' + self.opts.resultBodyClassName + '">' + results[i].body + '</p>';
-            html += '</a>';
+            html += TemplateEngine(self.opts.resultsTemplate, results[i]);
         }
 
         self.resultsElement.innerHTML = html;
 
-        self.afterInsertResults();
+        self.opts.onAfterInsertResults();
     },
 
     search: function() {
