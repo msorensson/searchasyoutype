@@ -4,7 +4,11 @@
   "description": "Search as you type",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:webpack",
+    "build:webpack": "webpack --progress --optimize-minimize",
+    "dev": "npm run dev:webpack & npm run browsersync",
+    "dev:webpack": "webpack -w",
+    "browsersync": "browser-sync start --server --files src"
   },
   "repository": "https://github.com/msorensson/searchasyoutype",
   "author": "Martin Sörensson",
