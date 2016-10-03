@@ -1,10 +1,11 @@
 'use strict';
 var debounce = require('lodash/debounce');
+var assign = require('lodash/assign');
 require('es6-promise').polyfill();
 require('classlist-polyfill');
 require('whatwg-fetch');
 
-var SearchWidget = function(el) {
+var SearchWidget = function(el, opts) {
     var self = this;
 
     self.el = el;
@@ -21,6 +22,8 @@ var SearchWidget = function(el) {
         linkClassName: 'search-widget__link',
         endpoint: el.getAttribute('data-endpoint') || ''
     };
+
+    assign(self.opts, opts);
 
     self.inputElement = self.el.querySelector(self.opts.inputSelector);
     self.resultsElement = self.el.querySelector(self.opts.resultsSelector);
