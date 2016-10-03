@@ -45,26 +45,6 @@ SearchWidget.prototype = {
         self.messageElement.innerHTML = msg;
     },
 
-    afterInsertResults: function() {
-        var self = this;
-        var results = self.resultsElement.getElementsByClassName(self.opts.resultClassName);
-        var el;
-
-        var sequence = function(el, idx, cb) {
-            setTimeout(function() {
-                cb.call(null, el);
-            }, 200 * idx - 200);
-        };
-
-        for (var i = 0; i < results.length; i++) {
-            results[i].classList.add(self.opts.resultNewClassName);
-
-            sequence(results[i], i, function(el) {
-                el.classList.remove(self.opts.resultNewClassName);
-            });
-        }
-    },
-
     insertResults: function(results) {
         var self = this;
         var html = '';
