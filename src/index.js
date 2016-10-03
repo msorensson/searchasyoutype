@@ -21,17 +21,22 @@ var SearchWidget = function(el, opts) {
         resultBodyClassName: 'search-widget__result-body',
         linkClassName: 'search-widget__link',
         endpoint: el.getAttribute('data-endpoint') || '',
-        onAfterFetch: function(queryString, data) {}
+        onAfterFetch: function(queryString, data) {},
+        onAfterInsertResults: function() {}
     };
 
     assign(self.opts, opts);
 
     self.inputElement = self.el.querySelector(self.opts.inputSelector);
-    self.resultsElement = self.el.querySelector(self.opts.resultsSelector);
     self.messageElement = self.el.querySelector(self.opts.messageSelector);
     self.queryString = '';
 
     self.initialize = function() {
+        if (!self.el.querySelector(self.opts.resultsSelector)) {
+            self.inputElement.insertAdjacentHTML('afterend', '<div class="' + self.opts.resultsSelector.replace('.', '') + '"></div>');
+        }
+
+        self.resultsElement = self.el.querySelector(self.opts.resultsSelector);
         self.addEventListeners();
     };
 
@@ -75,7 +80,12 @@ SearchWidget.prototype = {
         }).then(function(json) {
             self.opts.onAfterFetch(self.queryString, json);
             self.insertResults(json.results);
-            self.insertQueryMessage(json.link_text);
+
+            if (json.link_text) {
+                self.insertQueryMessage(json.link_text);
+            }
+
+            self.opts.onAfterInsertResults();
         }).catch(function(err) {
             // @todo implement error handling
             console.error(err);
