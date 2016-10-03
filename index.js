@@ -89,17 +89,6 @@ SearchWidget.prototype = {
         }).then(function(response) {
             return response.json();
         }).then(function(json) {
-
-            // Pushes to GTM start.
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                event: 'search as you type',
-                queryString: self.queryString,
-                total: json.total,
-                results: (json.results.length > 0) ? true : false
-            });
-            // Pushes to GTM end.
-
             self.insertResults(json.results);
             self.insertQueryMessage(json.link_text);
         }).catch(function(err) {
