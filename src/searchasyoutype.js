@@ -1,0 +1,1 @@
+window.SearchAsYouType = require('./index');
