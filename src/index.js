@@ -23,6 +23,7 @@ var SearchAsYouType = function(el, opts) {
         resultBodyClassName: 'sayt__result-body',
         linkClassName: 'sayt__link',
         endpoint: el.getAttribute('data-endpoint') || '',
+        onBeforeFetch: function(queryString) {},
         onAfterFetch: function(queryString, data) {},
         onAfterInsertResults: function() {}
     };
@@ -70,6 +71,7 @@ SearchWidget.prototype = {
     search: function() {
         var self = this;
         var endpoint = self.opts.endpoint + '?q=' + self.queryString;
+        self.opts.onBeforeFetch(self.queryString);
 
         fetch(endpoint, {
             headers: {
