@@ -1,7 +1,8 @@
 'use strict';
 var debounce = require('lodash/debounce');
 var assign = require('lodash/assign');
-var TemplateEngine = require('./templateEngine');
+var template = require('lodash/template');
+var forEach = require('lodash/forEach');
 
 require('es6-promise').polyfill();
 require('classlist-polyfill');
@@ -19,18 +20,23 @@ var SearchWidget = function(el, opts) {
         messageSelector: '.sayt__submit--message',
         resultClassName: 'sayt__result',
         resultNewClassName: 'search-widget__result--new',
-        resultTitleClassName: 'search-widget__result-title',
-        resultBodyClassName: 'search-widget__result-body',
-        linkClassName: 'search-widget__link',
+        resultTitleClassName: 'sayt__result-title',
+        resultBodyClassName: 'sayt__result-body',
+        linkClassName: 'sayt__link',
         endpoint: el.getAttribute('data-endpoint') || '',
         onAfterFetch: function(queryString, data) {},
         onAfterInsertResults: function() {}
     };
 
-    self.opts.resultsTemplate = '<a href="<%this.url%> class="' + self.opts.resultClassName + '">' +
-        '<h3 class="' + self.opts.resultTitleClassName + '"><%this.title%></h3>' +
-        '<p class="' + self.opts.resultBodyClassName + '"><%this.body%></p>' +
-        '</a>';
+    self.opts.resultsTemplate = '<a href="<%= linkUrl %>" class="sayt__link"><%= linkText %></a>' +
+        '<% forEach(results, function(result) { %>' +
+        '<a href="<%= result.url %>" class="' + self.opts.resultClassName + '">' +
+        '<h3 class="' + self.opts.resultTitleClassName + '"><%= result.title %></h3>' +
+        '<p class="' + self.opts.resultBodyClassName + '"><%= result.body %></p>' +
+        '</a>' +
+        '<% }); %>';
+
+    self.compiledTemplate = template(self.opts.resultsTemplate, { 'imports': { 'forEach': forEach } });
 
     assign(self.opts, opts);
 
@@ -57,17 +63,9 @@ SearchWidget.prototype = {
         self.messageElement.innerHTML = msg;
     },
 
-    insertResults: function(results) {
+    insertResults: function(data) {
         var self = this;
-        var html = '';
-
-        for (var i =  0; i < results.length; i++) {
-            html += TemplateEngine(self.opts.resultsTemplate, results[i]);
-        }
-
-        self.resultsElement.innerHTML = html;
-
-        self.opts.onAfterInsertResults();
+        self.resultsElement.innerHTML = self.compiledTemplate(data);
     },
 
     search: function() {
@@ -83,7 +81,7 @@ SearchWidget.prototype = {
             return response.json();
         }).then(function(json) {
             self.opts.onAfterFetch(self.queryString, json);
-            self.insertResults(json.results);
+            self.insertResults(json);
 
             if (json.link_text) {
                 self.insertQueryMessage(json.link_text);
