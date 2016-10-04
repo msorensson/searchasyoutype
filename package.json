@@ -12,7 +12,7 @@
   },
   "repository": "https://github.com/msorensson/searchasyoutype",
   "author": "Martin Sörensson",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "classlist-polyfill": "^1.0.3",
     "es6-promise": "^4.0.4",
