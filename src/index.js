@@ -8,7 +8,7 @@ require('es6-promise').polyfill();
 require('classlist-polyfill');
 require('whatwg-fetch');
 
-var SearchWidget = function(el, opts) {
+var SearchAsYouType = function(el, opts) {
     var self = this;
 
     self.el = el;
@@ -19,7 +19,6 @@ var SearchWidget = function(el, opts) {
         resultsSelector: '.sayt__result-container',
         messageSelector: '.sayt__submit--message',
         resultClassName: 'sayt__result',
-        resultNewClassName: 'search-widget__result--new',
         resultTitleClassName: 'sayt__result-title',
         resultBodyClassName: 'sayt__result-body',
         linkClassName: 'sayt__link',
@@ -118,4 +117,4 @@ SearchWidget.prototype = {
     }
 };
 
-module.exports = SearchWidget;
+module.exports = SearchAsYouType;
