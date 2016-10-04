@@ -24,6 +24,22 @@ The javascript:
     new SearchAsYouType(el, { // options });
 ```
 
+## Default format of json response
+```JSON
+{
+    "linkText": "View all 360 results",
+    "linkUrl": "search?q=querystring",
+    "results": [
+        {
+            "url": "mypost.html",
+            "title": "My post",
+            "body": "My post body here..."
+        },
+        {...}
+    ]
+}
+```
+
 ## Options
 These are the options you can provide to override default behaviour:
 
@@ -38,6 +54,22 @@ These are the options you can provide to override default behaviour:
 * `onBeforeFetch` Called before ajax call is made. Takes queryString as argument. (default: function(queryString) {})
 * `onAfterFetch`: Called after ajax call has been made. Takes queryString and response json data as arguments. (default: function(queryString, data) {})
 * `onAfterInsertResults` Called after results are inserted in results element. (default: function() {})
+* `template` Use this to override default markup of results. Example below.
+
+## Template
+If your response data is formatted differently (which it probably is) you can provide your own (very simple) template for the response:
+```javascript
+    new SearchAsYouType(el, {
+        template: '<% forEach(results, function(result) { %>' +
+        '<a href="<%= result.url %>" class="search-widget__result">' +
+        '<h3 class="search-widget__result-title"><%= result.title %></h3>' +
+        '<p class="search-widget__result-body"><%= result.body %></p>' +
+        '</a>' +
+        '<% }); %>'
+    });
+```
+
+The `forEach` function is present for looping. use `<%= something %>` to print and `<% if (true === true) { %> <% } %>` to execute javascript.
 
 ## jQuery plugin
 SearchAsYouType does not require jQuery but there is a jQuery plugin if you prefer.
