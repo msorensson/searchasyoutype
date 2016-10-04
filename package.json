@@ -1,6 +1,6 @@
 {
   "name": "searchasyoutype",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Search as you type",
   "main": "src/index.js",
   "scripts": {
