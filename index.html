@@ -8,13 +8,45 @@
         <link rel="stylesheet" href="/src/style/style.css">
     </head>
     <body>
-        <form class="sayt" data-endpoint="demoresponse.json">
-            <input type="search" name="q" class="sayt__input" />
-        </form>
+      <h1>Search As You type</h1>
+        <div class="example">
+            <h2>Without jQuery</h2>
+            <form class="sayt sayt-1" data-endpoint="demoresponse.json">
+                <input type="search" name="q" class="sayt__input" placeholder="Start typing" />
+            </form>
+
+            <pre class="example__code">
+                var el = document.querySelector('.sayt-1');
+                new SearchAsYouType(el);
+            </pre>
+        </div>
+
+        <div class="example">
+            <h2>With jQuery</h2>
+            <form class="sayt sayt-2" data-endpoint="demoresponse.json">
+                <input type="search" name="q" class="sayt__input" placeholder="Start typing" />
+            </form>
+
+            <pre class="example__code">
+                $('.sayt-2').searchAsYouType();
+            </pre>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="/dist/searchasyoutype.min.js"></script>
+        <script src="/dist/searchasyoutype.jquery.min.js"></script>
         <script>
-         var el = document.querySelector('.sayt');
-         new SearchAsYouType(el);
+          // Without jQuery.
+          (function() {
+          var el = document.querySelector('.sayt-1');
+          new SearchAsYouType(el);
+          })();
+
+          // With jQuery
+          (function() {
+          $('.sayt-2').searchAsYouType();
+          })();
+
         </script>
     </body>
 </html>
