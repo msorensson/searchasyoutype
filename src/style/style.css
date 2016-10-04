@@ -17,10 +17,13 @@ body {
     padding: 100px 15px 15px;
 }
 
+h1, h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
 .sayt {
     background: #F1D4AF;
-    max-width: 1000px;
-    margin: 0 auto;
     padding: 35px;
 }
 
@@ -74,4 +77,14 @@ body {
 
 .sayt__link:hover {
     text-decoration: underline;
+}
+
+.example {
+    max-width: 1000px;
+    margin: 100px auto;
+}
+
+.example__code {
+    padding: 35px;
+    background: #C5E0DC;
 }
