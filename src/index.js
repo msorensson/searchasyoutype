@@ -28,7 +28,7 @@ var SearchAsYouType = function(el, opts) {
         onAfterInsertResults: function() {}
     };
 
-    self.opts.resultsTemplate = '<a href="<%= linkUrl %>" class="sayt__link"><%= linkText %></a>' +
+    self.opts.template = '<a href="<%= linkUrl %>" class="sayt__link"><%= linkText %></a>' +
         '<% forEach(results, function(result) { %>' +
         '<a href="<%= result.url %>" class="' + self.opts.resultClassName + '">' +
         '<h3 class="' + self.opts.resultTitleClassName + '"><%= result.title %></h3>' +
@@ -37,7 +37,7 @@ var SearchAsYouType = function(el, opts) {
         '<% }); %>';
 
     assign(self.opts, opts);
-    self.compiledTemplate = template(self.opts.resultsTemplate, { 'imports': { 'forEach': forEach } });
+    self.compiledTemplate = template(self.opts.template, { 'imports': { 'forEach': forEach } });
 
     self.inputElement = self.el.querySelector(self.opts.inputSelector);
     self.messageElement = self.el.querySelector(self.opts.messageSelector);
