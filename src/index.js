@@ -36,9 +36,8 @@ var SearchAsYouType = function(el, opts) {
         '</a>' +
         '<% }); %>';
 
-    self.compiledTemplate = template(self.opts.resultsTemplate, { 'imports': { 'forEach': forEach } });
-
     assign(self.opts, opts);
+    self.compiledTemplate = template(self.opts.resultsTemplate, { 'imports': { 'forEach': forEach } });
 
     self.inputElement = self.el.querySelector(self.opts.inputSelector);
     self.messageElement = self.el.querySelector(self.opts.messageSelector);
