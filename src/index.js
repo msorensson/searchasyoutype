@@ -55,7 +55,7 @@ var SearchAsYouType = function(el, opts) {
     self.initialize();
 };
 
-SearchWidget.prototype = {
+SearchAsYouType.prototype = {
 
     insertQueryMessage: function(msg) {
         var self = this;
