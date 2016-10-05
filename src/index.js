@@ -56,12 +56,6 @@ var SearchAsYouType = function(el, opts) {
 };
 
 SearchAsYouType.prototype = {
-
-    insertQueryMessage: function(msg) {
-        var self = this;
-        self.messageElement.innerHTML = msg;
-    },
-
     insertResults: function(data) {
         var self = this;
         self.resultsElement.innerHTML = self.compiledTemplate(data);
@@ -82,11 +76,6 @@ SearchAsYouType.prototype = {
         }).then(function(json) {
             self.opts.onAfterFetch(self.queryString, json);
             self.insertResults(json);
-
-            if (json.link_text) {
-                self.insertQueryMessage(json.link_text);
-            }
-
             self.opts.onAfterInsertResults();
         }).catch(function(err) {
             // @todo implement error handling
