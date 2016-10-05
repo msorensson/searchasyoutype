@@ -17,7 +17,6 @@ var SearchAsYouType = function(el, opts) {
         minStringLength: 3,
         inputSelector: '.sayt__input',
         resultsSelector: '.sayt__result-container',
-        messageSelector: '.sayt__submit--message',
         resultClassName: 'sayt__result',
         resultTitleClassName: 'sayt__result-title',
         resultBodyClassName: 'sayt__result-body',
@@ -40,7 +39,6 @@ var SearchAsYouType = function(el, opts) {
     self.compiledTemplate = template(self.opts.template, { 'imports': { 'forEach': forEach } });
 
     self.inputElement = self.el.querySelector(self.opts.inputSelector);
-    self.messageElement = self.el.querySelector(self.opts.messageSelector);
     self.queryString = '';
 
     self.initialize = function() {
@@ -89,7 +87,6 @@ SearchAsYouType.prototype = {
 
         if (currentQueryString.length < self.opts.minStringLength) {
             self.resultsElement.innerHTML = '';
-            self.messageElement.innerHTML = '';
         }
 
         if (currentQueryString.length >= self.opts.minStringLength &&
