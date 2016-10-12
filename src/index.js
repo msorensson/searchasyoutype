@@ -100,7 +100,7 @@ SearchAsYouType.prototype = {
 
     addEventListeners: function() {
         var self = this;
-        self.inputElement.addEventListener('keyup', debounce(self.onKeyup.bind(this), 300));
+        self.inputElement.addEventListener('input', debounce(self.onKeyup.bind(this), 300));
     }
 };
 
