@@ -17,6 +17,6 @@
     "classlist-polyfill": "^1.0.3",
     "es6-promise": "^4.0.4",
     "lodash": "^4.16.2",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "2.0.1"
   }
 }
