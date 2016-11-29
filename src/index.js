@@ -65,6 +65,7 @@ SearchAsYouType.prototype = {
         self.opts.onBeforeFetch(self.queryString);
 
         fetch(endpoint, {
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
